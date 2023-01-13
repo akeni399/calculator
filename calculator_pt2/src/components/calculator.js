@@ -1,6 +1,5 @@
 // Imports.
 import React from 'react';
-import CalculatorTitle from './calculatorTitle.js';
 import OutputScreen from './outputScreen.js';
 import Button from './button.js';
 
@@ -25,13 +24,12 @@ class Calculator extends React.Component {
     {
     return (
     <div className="frame">
-    <CalculatorTitle value="calculator"/>
     <div class="mainCalc">
     <OutputScreen answer = {this.state.answer} question = {this.state.question}/>
     <div className="button-row">
-      <Button label={'Clear'} handleClick = {this.handleClick}/>
-      <Button label={'Delete'} handleClick = {this.handleClick}/>
-      <Button label={'.'}  handleClick = {this.handleClick}/>
+      <Button label={'C'} handleClick = {this.handleClick}/>
+      <Button label={'Del'} handleClick = {this.handleClick}/>
+      <Button label={'%'}  handleClick = {this.handleClick}/>
       <Button label={'/'} handleClick = {this.handleClick}/>
     </div>
     <div className="button-row">
@@ -54,7 +52,9 @@ class Calculator extends React.Component {
     </div>
     <div className="button-row">
       <Button label={'0'} handleClick = {this.handleClick} />
-      <Button label={'='} handleClick = {this.handleClick}/>
+      <Button label={'.'} handleClick = {this.handleClick} />
+      <Button label={'+/-'} handleClick = {this.handleClick} />
+      <Button label={'='} className="equals" handleClick = {this.handleClick}/>
     </div>
     </div>
     </div>
@@ -91,19 +91,26 @@ class Calculator extends React.Component {
     			break;
     		}
       }
-      case 'Clear': {
+      case 'C': {
         // if it's the Clears sign, just clean our
         // question and answer in the state
         this.setState({ question: '', answer: '' });
         break;
       }
 
-	  case 'Delete': {
+	  case 'Del': {
 	    var str = this.state.question;
   		str = str.substr(0,str.length-1);
   		this.setState({question: str});
   		break;
 	  }
+
+      case '+/-': {
+        var str = this.state.question;
+        str = -str;
+        this.setState({question:str});
+        break;
+      }
 
     default: {
         // for every other commmand, update the answer in the state
